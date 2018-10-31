@@ -1,0 +1,27 @@
+<html>
+
+<head>
+    <title>
+        Demo Server
+    </title>
+</head>
+
+<body>
+    {{#each lines}}
+    <p>{{this}}</p>
+    {{/each}}
+    <div id="sse-rows">
+
+    </div>
+    <script>
+        const es = new EventSource("/sse");
+        es.onmessage = function (event) {
+            const divNode = document.createElement('p');
+            const txtNode = document.createTextNode(event.data);
+            divNode.appendChild(txtNode)
+            document.getElementById("sse-rows").appendChild(divNode);
+        };
+    </script>
+</body>
+
+</html>
